@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+/.pnp
+.pnp.js
+.turbo
+
+# tests
+test-results
+
+# claude code local settings
+.claude/settings.local.json
+
+# dev-container specific ignores
+/.pnpm-store
+/.playwright-mcp
+
+# eslint cache
+.eslintcache
+
+# misc
+.DS_Store
