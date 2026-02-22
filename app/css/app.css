@@ -1,0 +1,309 @@
+/* ============================================================
+   Reset & base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  color: #1a1a2e;
+  background: #f5f5f5;
+}
+
+a { color: #3273dc; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ============================================================
+   App layout
+   ============================================================ */
+#app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#map {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ============================================================
+   Sidebar header
+   ============================================================ */
+#sidebar h1 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  padding: 18px 16px 4px;
+  color: #111;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #777;
+  padding: 0 16px 14px;
+  border-bottom: 1px solid #eee;
+}
+
+/* ============================================================
+   Layer controls
+   ============================================================ */
+.layer-controls {
+  padding: 14px 16px 0;
+}
+
+.layer-controls h2 {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.layer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  user-select: none;
+}
+
+.layer-toggle input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: #3273dc;
+}
+
+/* Coloured dot indicators */
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-air        { background: #3cb371; }
+.dot-noise      { background: #9b59b6; }
+.dot-road-noise { background: #ff6600; }
+.dot-flood      { background: #394386; }
+.dot-deprivation{ background: #e74c3c; }
+.dot-combined   { background: #2980b9; }
+
+/* Road noise metric sub-options */
+.road-noise-sub {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0 6px 23px;
+  flex-wrap: wrap;
+}
+
+.road-noise-sub.hidden { display: none; }
+
+.sub-label {
+  font-size: 10px;
+  color: #999;
+  flex-shrink: 0;
+}
+
+.sub-option {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #555;
+  cursor: pointer;
+}
+
+.sub-option input[type="radio"] {
+  cursor: pointer;
+  accent-color: #ff6600;
+}
+
+.divider {
+  height: 1px;
+  background: #eee;
+  margin: 10px 0;
+}
+
+.combined-toggle {
+  color: #2980b9;
+}
+
+.combined-note {
+  font-size: 11px;
+  color: #888;
+  line-height: 1.4;
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+
+/* ============================================================
+   Legend container
+   ============================================================ */
+#legend-container {
+  flex: 1;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.legend-panel {
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.legend-panel h3 {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.legend-subtitle {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 6px;
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #444;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0,0,0,0.12);
+}
+
+.legend-swatch.circle {
+  border-radius: 50%;
+}
+
+.legend-img {
+  max-width: 100%;
+  margin-top: 4px;
+}
+
+.legend-note {
+  font-size: 10px;
+  color: #aaa;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ============================================================
+   Leaflet popup overrides
+   ============================================================ */
+.leaflet-popup-content {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 12px;
+  min-width: 180px;
+}
+
+.popup-title {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #111;
+}
+
+.popup-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.popup-table td {
+  padding: 3px 0;
+  vertical-align: top;
+}
+
+.popup-table td:first-child {
+  color: #666;
+  padding-right: 8px;
+  white-space: nowrap;
+}
+
+.popup-table td:last-child {
+  font-weight: 500;
+}
+
+.popup-aqi-band {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.aqi-low        { background: #3cb371; }
+.aqi-moderate   { background: #f0a500; color: #333; }
+.aqi-high       { background: #e67e22; }
+.aqi-very-high  { background: #c0392b; }
+.aqi-no-data    { background: #aaa; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+footer {
+  padding: 10px 16px 14px;
+  border-top: 1px solid #eee;
+  font-size: 10px;
+  color: #aaa;
+  line-height: 1.5;
+}
+
+footer p { margin-bottom: 4px; }
+footer a { color: #999; }
+
+.noise-note { font-style: italic; }
+
+/* ============================================================
+   Loading / error states
+   ============================================================ */
+.loading-msg {
+  font-size: 11px;
+  color: #aaa;
+  font-style: italic;
+}
+
+.error-msg {
+  font-size: 11px;
+  color: #c0392b;
+}

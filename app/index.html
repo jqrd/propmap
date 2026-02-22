@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>West London Environment Map</title>
+
+  <!-- Leaflet 1.9.4 -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <h1>West London<br>Environment Map</h1>
+      <p class="subtitle">Hammersmith · Putney · Chiswick · Richmond</p>
+
+      <section class="layer-controls">
+        <h2>Layers</h2>
+
+        <label class="layer-toggle">
+          <input type="checkbox" id="toggle-air" checked />
+          <span class="dot dot-air"></span>
+          Air Quality
+        </label>
+
+        <label class="layer-toggle">
+          <input type="checkbox" id="toggle-noise" checked />
+          <span class="dot dot-noise"></span>
+          Noise (Defra END agglomerations)
+        </label>
+
+        <label class="layer-toggle">
+          <input type="checkbox" id="toggle-road-noise" checked />
+          <span class="dot dot-road-noise"></span>
+          Road Noise Lden (Extrium/Defra)
+        </label>
+        <div class="road-noise-sub" id="road-noise-sub">
+          <span class="sub-label">Metric:</span>
+          <label class="sub-option"><input type="radio" name="road-noise-metric" value="RD_LDEN_R3" checked /> Lden</label>
+          <label class="sub-option"><input type="radio" name="road-noise-metric" value="RD_LQ16_R3" /> LAeq,16h</label>
+          <label class="sub-option"><input type="radio" name="road-noise-metric" value="RD_LNGT_R3" /> Lnight</label>
+        </div>
+
+        <label class="layer-toggle">
+          <input type="checkbox" id="toggle-flood" checked />
+          <span class="dot dot-flood"></span>
+          Flood Risk (EA)
+        </label>
+        <div class="road-noise-sub" id="flood-sub">
+          <span class="sub-label">Show:</span>
+          <label class="sub-option"><input type="radio" name="flood-mode" value="rs" checked /> Rivers &amp; sea</label>
+          <label class="sub-option"><input type="radio" name="flood-mode" value="sw" /> Surface water</label>
+          <label class="sub-option"><input type="radio" name="flood-mode" value="both" /> Both</label>
+        </div>
+
+        <label class="layer-toggle">
+          <input type="checkbox" id="toggle-deprivation" checked />
+          <span class="dot dot-deprivation"></span>
+          Deprivation (IMD 2019)
+        </label>
+
+        <div class="divider"></div>
+
+        <label class="layer-toggle combined-toggle">
+          <input type="checkbox" id="toggle-combined" />
+          <span class="dot dot-combined"></span>
+          Combined Score
+        </label>
+        <p class="combined-note">
+          Shows a per-LSOA composite (40% deprivation, 40% air quality, 20% noise*).
+          Hides individual layers while active.
+        </p>
+      </section>
+
+      <section id="legend-container">
+        <!-- Legend panels injected by legend.js -->
+      </section>
+
+      <footer>
+        <p>Data: <a href="https://www.londonair.org.uk/" target="_blank">ERG/KCL London Air</a> ·
+           <a href="https://environment.data.gov.uk/" target="_blank">Defra</a> ·
+           <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019" target="_blank">MHCLG IMD 2019</a> ·
+           <a href="https://geoportal.statistics.gov.uk/" target="_blank">ONS</a></p>
+        <p class="noise-note">*Noise held at neutral 0.5 — Defra WMS tiles are not per-LSOA queryable.</p>
+      </footer>
+    </aside>
+
+    <div id="map"></div>
+  </div>
+
+  <!-- Load order matters: legend → layers → app -->
+  <script src="js/utils/legend.js"></script>
+  <script src="js/layers/air-quality.js"></script>
+  <script src="js/layers/noise.js"></script>
+  <script src="js/layers/road-noise.js"></script>
+  <script src="js/layers/flood-risk.js"></script>
+  <script src="js/layers/deprivation.js"></script>
+  <script src="js/layers/combined-score.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
